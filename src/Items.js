@@ -1,6 +1,18 @@
-import React, { Component } from 'react';
-import { Table, Icon, Input, Button, Popconfirm } from 'antd';
-import _ from 'lodash';
+import React, { PureComponent } from 'react';
+import _clone from 'lodash/clone';
+import _conforms from 'lodash/conforms';
+import _filter from 'lodash/filter';
+import _isEmpty from 'lodash/isEmpty';
+import Table from 'antd/lib/table';
+import Icon from 'antd/lib/icon';
+import Input from 'antd/lib/input';
+import Button from 'antd/lib/button';
+import Popconfirm from 'antd/lib/popconfirm';
+import 'antd/lib/table/style/css';
+import 'antd/lib/icon/style/css';
+import 'antd/lib/input/style/css';
+import 'antd/lib/button/style/css';
+import 'antd/lib/popconfirm/style/css';
 
 import AddForm from './AddForm.js';
 import retrieveSheet from './Spreadsheet.js';
@@ -8,17 +20,13 @@ import './Item.css';
 
 const alphaSorter = (field) => (a, b) => a[field] < b[field] ? 1 : -1;
 
-export default class Items extends Component {
-  constructor(props) {
-    super(props);
-
-    this.state = {
-      data: [],
-      originalData: [],
-      sheet: null,
-      loading: false,
-      searchInfos: {}
-    };
+export default class Items extends PureComponent {
+  state = {
+    data: [],
+    originalData: [],
+    sheet: null,
+    loading: false,
+    searchInfos: {}
   }
 
   componentDidMount() {
@@ -55,7 +63,7 @@ export default class Items extends Component {
       this.setState({
         ...this.state,
         originalData: dataRows,
-        data: _.clone(dataRows),
+        data: _clone(dataRows),
         searchInfos: {}
       });
       this.loading(false);
@@ -83,9 +91,9 @@ export default class Items extends Component {
     }, {});
 
     const data = this.state.originalData.map(record => {
-      const match2 = _.conforms(searchRegexp);
+      const match = _conforms(searchRegexp);
 
-      if (_.isEmpty(_.filter([record], match2))) {
+      if (_isEmpty(_filter([record], match))) {
         return null;
       }
 

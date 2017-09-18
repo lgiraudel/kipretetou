@@ -1,13 +1,10 @@
-import React, { Component } from 'react';
-import { AutoComplete as AntdAutoComplete } from 'antd';
+import React, { PureComponent } from 'react';
+import AntdAutoComplete from 'antd/lib/auto-complete';
+import 'antd/lib/auto-complete/style/css';
 
-export default class AutoComplete extends Component {
-  constructor(props) {
-    super(props);
-
-    this.state = {
-      datasource: this.props.datasource
-    };
+export default class AutoComplete extends PureComponent {
+  state = {
+    datasource: this.props.datasource
   }
 
   componentWillReceiveProps(nextProps) {

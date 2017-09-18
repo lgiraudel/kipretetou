@@ -1,17 +1,15 @@
-import React, { Component } from 'react';
-import { Layout, Button } from 'antd';
-import 'antd/dist/antd.css';
+import React, { PureComponent } from 'react';
+import Layout from 'antd/lib/layout';
+import Button from 'antd/lib/button';
+import 'antd/lib/layout/style/css';
+import 'antd/lib/button/style/css';
 import './App.css';
 
 import Items from './Items.js';
 
-class App extends Component {
-  constructor(props) {
-    super(props);
-
-    this.state = {
-      showAddForm: false
-    };
+class App extends PureComponent {
+  state = {
+    showAddForm: false
   }
 
   handleClick = e => {

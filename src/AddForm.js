@@ -1,20 +1,21 @@
-import React, { Component } from 'react';
-import { Input, Modal, Form } from 'antd';
-import _ from 'lodash';
+import React, { PureComponent } from 'react';
+import _uniq from 'lodash/uniq';
+import Input from 'antd/lib/input';
+import Modal from 'antd/lib/modal';
+import Form from 'antd/lib/form';
+import 'antd/lib/input/style/css';
+import 'antd/lib/modal/style/css';
+import 'antd/lib/form/style/css';
 
 import retrieveSheet from './Spreadsheet.js';
 import AutoComplete from './AutoComplete.js';
 
-const AddForm = Form.create()(class extends Component {
-  constructor(props) {
-    super(props);
-
-    this.state = {
-      loading: false,
-      sheet: null,
-      categories: []
-    };
-  }
+const AddForm = Form.create()(class extends PureComponent {
+  state = {
+    loading: false,
+    sheet: null,
+    categories: []
+}
 
   componentDidMount() {
     retrieveSheet.then(sheet => {
@@ -34,7 +35,7 @@ const AddForm = Form.create()(class extends Component {
     }, (err, cells) => {
       this.setState({
         ...this.state,
-        categories: _.uniq(cells.map(cell => cell.value))
+        categories: _uniq(cells.map(cell => cell.value))
       });
     })
   }
